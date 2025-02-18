@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "~/server/database";
 import { dailysTable } from "~/server/database/schema/dailys";
 
@@ -7,7 +7,8 @@ export default defineEventHandler(async (e) => {
   const data = await db
     .select()
     .from(dailysTable)
-    .where(eq(dailysTable.user_id, user_id));
+    .where(eq(dailysTable.user_id, user_id))
+    .orderBy(desc(dailysTable.date));
   const count = data.length;
 
   return { data, count };
