@@ -34,7 +34,7 @@ export default defineEventHandler(async (e) => {
     return (
       await db
         .update(dailysTable)
-        .set({ ...body, user_id })
+        .set({ ...body })
         .where(where)
         .returning()
     )[0];
