@@ -15,6 +15,13 @@
       "when": 1739876862731,
       "tag": "0001_conscious_veda",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739891611590,
+      "tag": "0002_overjoyed_thunderbolt",
+      "breakpoints": true
     }
   ]
 }
