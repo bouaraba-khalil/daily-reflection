@@ -28,7 +28,7 @@ export default defineEventHandler(async (e) => {
     eq(dailysTable.date, date)
   );
 
-  const exist = await db.select().from(dailysTable).where(where);
+  const exist = (await db.select().from(dailysTable).where(where))[0];
 
   if (exist) {
     return (

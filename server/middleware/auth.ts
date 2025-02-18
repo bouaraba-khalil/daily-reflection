@@ -11,13 +11,13 @@ export default defineEventHandler(async (e) => {
     return;
   }
   const bearer = getCookie(e, authToken);
-  if (!bearer) throw unAuthorized(e);
-  const [, token] = bearer.split(" ");
+  if (!bearer) unAuthorized(e);
+  const [, token] = bearer!.split(" ");
 
   try {
     const data = await decodeToken(token);
     e.context.user = data as { id: number; email: string };
   } catch {
-    throw unAuthorized(e);
+    unAuthorized(e);
   }
 });

@@ -11,5 +11,8 @@ export class CustomResponse {
 }
 
 export function unAuthorized(e: H3Event) {
-  return { data: new CustomResponse("unauthorized", 401) };
+  throw { data: new CustomResponse("unauthorized", 401) };
+}
+export function not_found(e: H3Event) {
+  throw { data: new CustomResponse("not found", 400) };
 }
