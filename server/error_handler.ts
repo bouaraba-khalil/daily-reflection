@@ -1,4 +1,5 @@
 import { ZodError } from "zod";
+import { CustomResponse } from "./utils/responses";
 
 export default defineNitroErrorHandler((error, event) => {
   if (error.data instanceof ZodError) {
@@ -8,11 +9,16 @@ export default defineNitroErrorHandler((error, event) => {
     }));
     return send(event, JSON.stringify({ errors }), "application/json");
   }
-  
+
+  if (error.data instanceof CustomResponse) {
+    setResponseStatus(event, error.data.status);
+    return send(event, error.data.message, "text/plain");
+  }
+
   console.error(error);
   return send(
     event,
     JSON.stringify({ error: "internal server Error" }),
-    "application/json",
+    "application/json"
   );
 });

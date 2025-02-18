@@ -3,7 +3,7 @@ import { z, ZodError } from "zod";
 import { db } from "~/server/database";
 import { usersTable } from "~/server/database/schema/user";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { signTokenWithCookie } from "~/server/utils/jwt";
 
 const userSchema = z.object({
   email: z
@@ -17,16 +17,8 @@ const userSchema = z.object({
 export default defineEventHandler(async (e) => {
   const body = await readValidatedBody(e, userSchema.parse);
   const user = await findUser(body);
-  const expiresIn = 6 * 60 * 60; // token live for 6h in second format
-  const maxAge = Date.now() + expiresIn * 1000; // cookie live for 6h in timestamp format
 
-  const token = await signToken(user, expiresIn);
-
-  setCookie(e, "Authorization", `Bearer ${token}`, {
-    httpOnly: true,
-    secure: true,
-    maxAge,
-  });
+  await signTokenWithCookie(e, user);
 
   return user;
 });
@@ -50,11 +42,4 @@ async function findUser({ email, password }: z.infer<typeof userSchema>) {
     };
   }
   return { id: user.id, email: user.email };
-}
-
-async function signToken(
-  payload: { id: number; email: string },
-  expiresIn: number
-) {
-  return jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn });
 }

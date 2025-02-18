@@ -3,6 +3,7 @@ import { z, ZodError } from "zod";
 import { db } from "~/server/database";
 import { usersTable } from "~/server/database/schema/user";
 import bcrypt from "bcrypt";
+import { signTokenWithCookie } from "~/server/utils/jwt";
 
 const userSchema = z.object({
   email: z
@@ -33,6 +34,8 @@ export default defineEventHandler(async (e) => {
     };
   }
   const user = await createUser(body);
+
+  await signTokenWithCookie(e, user);
 
   return user;
 });
