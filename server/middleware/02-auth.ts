@@ -2,7 +2,9 @@ import { authToken, decodeToken } from "../utils/jwt";
 import { unAuthorized } from "../utils/responses";
 
 const baseUrl = "/api/v1";
-const publicPath = ["/login", "/signup"].map((url) => baseUrl + url);
+const apiPublicPath = ["/login", "/signup"].map((url) => baseUrl + url);
+
+const publicPath = ["/", ...apiPublicPath];
 
 export default defineEventHandler(async (e) => {
   const path = e.node.req.url;
