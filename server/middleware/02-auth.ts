@@ -4,11 +4,14 @@ import { unAuthorized } from "../utils/responses";
 const baseUrl = "/api/v1";
 const apiPublicPath = ["/login", "/signup"].map((url) => baseUrl + url);
 
-const publicPath = ["/", ...apiPublicPath];
-
 export default defineEventHandler(async (e) => {
   const path = e.node.req.url;
-  if (publicPath.includes(path!)) {
+
+  //ignore frontend
+  if (!path?.startsWith("/api/")) {
+    return;
+  }
+  if (apiPublicPath.includes(path!)) {
     return;
   }
   const bearer = getCookie(e, authToken);
