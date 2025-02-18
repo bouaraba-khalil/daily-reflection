@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { usersTable } from "../database/schema/user";
 import { H3Event } from "h3";
 
 export const authToken = "Authorization";
