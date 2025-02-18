@@ -1,5 +1,4 @@
-import { H3Event } from "h3";
-import { authToken, decodeToken, isValid } from "../utils/jwt";
+import { authToken, decodeToken } from "../utils/jwt";
 import { unAuthorized } from "../utils/responses";
 
 const baseUrl = "/api/v1";
@@ -11,13 +10,13 @@ export default defineEventHandler(async (e) => {
     return;
   }
   const bearer = getCookie(e, authToken);
-  if (!bearer) unAuthorized(e);
+  if (!bearer) unAuthorized();
   const [, token] = bearer!.split(" ");
 
   try {
     const data = await decodeToken(token);
     e.context.user = data as { id: number; email: string };
   } catch {
-    unAuthorized(e);
+    unAuthorized();
   }
 });

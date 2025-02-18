@@ -13,6 +13,6 @@ export default defineEventHandler(async (e) => {
   );
 
   const exist = (await db.select().from(dailysTable).where(where))[0];
-  if (!exist) not_found(e);
+  if (!exist) not_found();
   return exist;
 });
