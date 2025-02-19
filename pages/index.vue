@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const token = useCookie("Authorization");
+navigateTo("/login");
 </script>
 
-<template>test {{ token ? "lool" : "nop" }}</template>
+<template></template>

@@ -8,7 +8,12 @@ export default defineNuxtConfig({
   devServer: {
     // https: true,
   },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@nuxtjs/color-mode",
+    "@nuxtjs/plausible",
+  ],
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
@@ -23,5 +28,9 @@ export default defineNuxtConfig({
     classSuffix: "",
     storage: "localStorage",
     storageKey: "nuxt-color-mode",
+  },
+  plausible: {
+    // Prevent tracking on localhost
+    ignoredHostnames: ["localhost"],
   },
 });
