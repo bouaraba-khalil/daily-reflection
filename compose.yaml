@@ -1,0 +1,16 @@
+services:
+  daily-reflection:
+    build:
+      context: .
+    container_name: daily
+    environment:
+      VIRTUAL_HOST: daily.khalil.ink
+      VIRTUAL_PORT: 3000
+      LETSENCRYPT_HOST: daily.khalil.ink
+      LETSENCRYPT_EMAIL: mail@khalil.ink
+
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
