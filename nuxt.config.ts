@@ -8,4 +8,9 @@ export default defineNuxtConfig({
   devServer: {
     // https: true,
   },
+  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode"],
+  shadcn: {
+    prefix: "",
+    componentDir: "./components/ui",
+  },
 });

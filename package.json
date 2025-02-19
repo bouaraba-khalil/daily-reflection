@@ -12,14 +12,23 @@
     "migration:up": " drizzle-kit migrate"
   },
   "dependencies": {
+    "@nuxtjs/color-mode": "^3.5.2",
+    "@nuxtjs/tailwindcss": "6.13.1",
     "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
     "h3": "^1.15.0",
     "jsonwebtoken": "^9.0.2",
+    "lucide-vue-next": "^0.475.0",
     "nuxt": "^3.15.4",
     "pg": "^8.13.3",
+    "radix-vue": "^1.9.15",
+    "shadcn-nuxt": "0.11.3",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7",
     "vue": "latest",
     "vue-router": "latest",
     "zod": "^3.24.2"
