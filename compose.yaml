@@ -8,6 +8,10 @@ services:
       VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: daily.khalil.ink
       LETSENCRYPT_EMAIL: mail@khalil.ink
+    env_file:
+      - path: ./.env
+        required: true
+
 
 
 networks:
