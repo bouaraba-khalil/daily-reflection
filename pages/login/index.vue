@@ -1,5 +1,9 @@
 <script setup lang="ts">
-definePageMeta({});
+definePageMeta({
+  layout: "login",
+});
 </script>
 
-<template></template>
+<template>
+  <Button>Click me</Button>
+</template>
