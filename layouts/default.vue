@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import AppHeader from "~/components/AppHeader/AppHeader.vue";
+
 const { user, status } = useUserStore();
 </script>
 
 <template>
-  <div class="min-w-screen min-h-screen">
+  <div>
     <div
       v-if="status === 'pending'"
       class="min-w-screen min-h-screen grid place-items-center"
@@ -16,8 +18,8 @@ const { user, status } = useUserStore();
     >
       retry please
     </div>
-    <div v-else>
-      <slot />
-    </div>
+    <main v-else-if="status === 'success'" class="min-w-screen min-h-screen">
+      <AppHeader /> <slot />
+    </main>
   </div>
 </template>

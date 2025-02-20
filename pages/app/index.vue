@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const { data, error } = useFetch("/api/v1/profile");
+const { user } = useUserStore();
 </script>
 
 <template>
   dashboard
 
-  {{ JSON.stringify({ data }) }}
-  {{ JSON.stringify({ error }) }}
+  {{ JSON.stringify({ user }) }}
 </template>
