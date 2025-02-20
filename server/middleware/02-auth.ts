@@ -22,6 +22,6 @@ export default defineEventHandler(async (e) => {
     const data = await decodeToken(token);
     e.context.user = data as { id: number; email: string };
   } catch {
-    unAuthorized();
+    sendRedirect(e, "/login");
   }
 });

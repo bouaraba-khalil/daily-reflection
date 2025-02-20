@@ -26,8 +26,8 @@ export async function signTokenWithCookie(
   const token = await signToken(user, expiresIn);
 
   setCookie(e, authToken, `Bearer ${token}`, {
-    httpOnly: true,
-    secure: true,
+    // httpOnly: true,
+    // secure: true,
     maxAge,
   });
 }

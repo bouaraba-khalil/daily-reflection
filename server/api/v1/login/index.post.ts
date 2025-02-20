@@ -27,6 +27,19 @@ async function findUser({ email, password }: z.infer<typeof userSchema>) {
   const user = (
     await db.select().from(usersTable).where(eq(usersTable.email, email))
   )?.[0];
+
+  if (!user) {
+    throw {
+      data: new ZodError([
+        {
+          path: ["email"],
+          message: "wrong email/password combinaison",
+          code: "invalid_string",
+          validation: "email",
+        },
+      ]),
+    };
+  }
   const same = await bcrypt.compareSync(password, user.password);
 
   if (!same) {

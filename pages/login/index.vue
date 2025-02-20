@@ -2,41 +2,94 @@
 definePageMeta({
   layout: "login",
 });
+import { toTypedSchema } from "@vee-validate/zod";
+import * as z from "zod";
+import { useForm } from "vee-validate";
+import { vAutoAnimate } from "@formkit/auto-animate/vue";
+import { toast } from "~/components/ui/toast";
+
+const router = useRouter();
+const cookie = useCookie("Authorization");
+if (cookie.value) {
+  router.push("/app");
+}
+
+const formSchema = toTypedSchema(
+  z.object({
+    email: z
+      .string({ message: "email is required" })
+      .email({ message: "email is required" }),
+    password: z
+      .string({ message: "password is required" })
+      .min(6, { message: "password is too short" }),
+  })
+);
+
+const { isSubmitting, handleSubmit, setFieldError } = useForm({
+  validationSchema: formSchema,
+});
+
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    const res = await $fetch("/api/v1/login", {
+      method: "POST",
+      body: values,
+    });
+    router.push("/app");
+  } catch (e: any) {
+    const errors = e?.data?.errors;
+    if (Array.isArray(errors)) {
+      errors.forEach((error) => {
+        setFieldError(error?.path, error?.message);
+        if (
+          typeof error?.path === "string" &&
+          typeof error?.message === "string"
+        )
+          toast({
+            description: error?.message,
+            variant: "destructive",
+          });
+      });
+    }
+  }
+});
 </script>
 
 <template>
-  <Card class="w-[350px]">
+  <div v-if="cookie"><Loader /></div>
+  <Card v-else class="w-[350px]">
     <CardHeader>
-      <CardTitle>Create project</CardTitle>
-      <CardDescription>Deploy your new project in one-click.</CardDescription>
+      <CardTitle>🚀 Login</CardTitle>
+      <CardDescription>Connect and commit to yourself</CardDescription>
     </CardHeader>
     <CardContent>
-      <form>
-        <div class="grid items-center w-full gap-4">
-          <div class="flex flex-col space-y-1.5">
-            <Label for="name">Name</Label>
-            <Input id="name" placeholder="Name of your project" />
-          </div>
-          <div class="flex flex-col space-y-1.5">
-            <Label for="framework">Framework</Label>
-            <Select>
-              <SelectTrigger id="framework">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="nuxt"> Nuxt </SelectItem>
-                <SelectItem value="next"> Next.js </SelectItem>
-                <SelectItem value="sveltekit"> SvelteKit </SelectItem>
-                <SelectItem value="astro"> Astro </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <form @submit="onSubmit">
+        <FormField v-slot="{ componentField }" name="email">
+          <FormItem v-auto-animate>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input type="text" placeholder="shadcn" v-bind="componentField" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        </FormField>
+        <FormField v-slot="{ componentField }" name="password">
+          <FormItem v-auto-animate>
+            <FormLabel>Password</FormLabel>
+            <FormControl>
+              <Input
+                type="password"
+                placeholder="shadcn"
+                v-bind="componentField"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        </FormField>
+        <div class="flex justify-end py-6">
+          <Button :disabled="isSubmitting" type="submit">Login</Button>
         </div>
       </form>
     </CardContent>
-    <CardFooter class="flex justify-between px-6 pb-6">
-      <Button variant="outline"> Cancel </Button>
-      <Button>Deploy</Button>
-    </CardFooter>
   </Card>
 </template>
