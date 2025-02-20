@@ -36,7 +36,7 @@
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "vee-validate": "^4.15.0",
-    "vue": "link:@formkit/auto-animate/vue",
+    "vue": "latest",
     "vue-router": "latest",
     "zod": "^3.24.2"
   },
@@ -46,16 +46,5 @@
     "@types/pg": "^8.11.11",
     "drizzle-kit": "^0.30.4",
     "tsx": "^4.19.2"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "bcrypt",
-      "esbuild",
-      "vue-demi"
-    ],
-    "ignoredBuiltDependencies": [
-      "vue-demi"
-    ]
   }
 }
