@@ -2,13 +2,16 @@ FROM node:23-alpine
 
 WORKDIR /app
 
+RUN npm install -g pnpm
+
+
 COPY package.json  .
-RUN yarn install 
+RUN pnpm install 
 
 COPY . .
 
-RUN yarn run build
+RUN pnpm run build
 
 EXPOSE 3000
 
-CMD ["yarn", "run", "preview"]
+CMD ["pnpm", "run", "preview"]
