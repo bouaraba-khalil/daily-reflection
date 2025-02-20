@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
     "@nuxtjs/plausible",
+    "@pinia/nuxt",
   ],
   shadcn: {
     prefix: "",
@@ -33,5 +34,8 @@ export default defineNuxtConfig({
     // Prevent tracking on localhost
     ignoredHostnames: ["localhost"],
     apiHost: "https://plausible.khalil.ink",
+  },
+  pinia: {
+    storesDirs: ["./stores/**"],
   },
 });

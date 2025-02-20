@@ -4,7 +4,6 @@ const { data, error } = useFetch("/api/v1/profile");
 
 <template>
   dashboard
-  <Loader />
 
   {{ JSON.stringify({ data }) }}
   {{ JSON.stringify({ error }) }}
